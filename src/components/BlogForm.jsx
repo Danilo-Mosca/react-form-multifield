@@ -1,5 +1,5 @@
 // Funzione che disegna il form per l'inserimento dati
-function BlogForm({ handlerInput, handlerSubmit, postList }) {
+function BlogForm({ handlerInput, handlerSubmit, post }) {
     //parte html da ritornare
     return (
         <section className="my-4">
@@ -14,9 +14,10 @@ function BlogForm({ handlerInput, handlerSubmit, postList }) {
                         className="form-control"
                         id="title"
                         aria-describedby="titlelHelp"
-                        value={postList.title}
+                        value={post.title}
                         onChange={handlerInput}
                         name="title"
+                        placeholder="Titolo del post"
                     />
                     <div id="titlelHelp" className="form-text">
                         Il tuo articolo sarà pubblicato nel nostro blog!
@@ -30,11 +31,19 @@ function BlogForm({ handlerInput, handlerSubmit, postList }) {
                         className="form-control"
                         id="content"
                         rows="5"
-                        value={postList.content}
+                        value={post.content}
                         onChange={handlerInput}
-                        name="content">
+                        name="content"
+                        placeholder="Contenuto del post">
                     </textarea>
                 </div>
+
+                {/* <select name="category"
+                    onChange={handlerChange}>
+                    {postList.map((post) => {
+                        <option value="{post.category}">{post.category}</option>
+                    })}
+                </select> */}
 
                 <div className="mb-3 form-check">
                     <input
@@ -43,6 +52,7 @@ function BlogForm({ handlerInput, handlerSubmit, postList }) {
                         id="published"
                         name="published"
                         onChange={handlerInput}
+                        checked={post.published}
                     />
                     <label className="form-check-label" htmlFor="published">
                         Clicca qui se vuoi pubblicare subito, altrimenti lascialo in bozza

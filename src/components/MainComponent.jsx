@@ -8,6 +8,8 @@ const initialPost = {
     title: "",
     image: "https://picsum.photos/640/480",
     content: "",
+    category: "",
+    tags: ["storia", "arte", "sport", "attualità"],
     published: false,
 };
 
@@ -22,9 +24,7 @@ export default function MainComponent() {
     function deletedPost(id) {
         setPostList(postList.filter((value) => value.id != id));
     }
-
-
-
+    
     // Funzione che gestisce gli eventi sulle Input text
     function handlerInput(event) {
         /* Metodo lungo: */
@@ -73,6 +73,8 @@ export default function MainComponent() {
         setPost(initialPost);
     }
 
+    
+    
     // Clono l'array della variabile di stato
     const arrayPosts = [...postList];
 
@@ -95,7 +97,7 @@ export default function MainComponent() {
             <BlogForm
                 handlerInput={handlerInput}
                 handlerSubmit={handlerSubmit}
-                postList={postList}
+                post={post}
             />
         </>
     );
