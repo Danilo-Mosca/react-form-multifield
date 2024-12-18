@@ -27,7 +27,7 @@ export default function MainComponent() {
     function deletedPost(id) {
         setPostList(postList.filter((value) => value.id != id));
     }
-    
+
     // Funzione che gestisce gli eventi sulle Input text
     function handlerInput(event) {
         /* Metodo lungo: */
@@ -77,14 +77,14 @@ export default function MainComponent() {
     }
 
     /* Eseguo l'hook useEffect al caricamento iniziale della pagina e ogni volta che cambia il valore di post.published */
-    useEffect(()=>{
+    useEffect(() => {
         // Visualizzo un alert ogni volta che il valore di post.published sarà selezionato, cioè sarà true
         if (post.published) {
             alert("Hai cliccato su pubblica l'articolo!");
-            
+
         }
     }, [post.published]);
-    
+
     // Clono l'array della variabile di stato
     const arrayPosts = [...postList];
 
@@ -93,14 +93,17 @@ export default function MainComponent() {
         <>
             {// Mappo props cities per popolare le card
                 arrayPosts.map((post) => {
-                    return <Card
-                        id={post.id}
-                        title={post.title}
-                        image={post.image}
-                        content={post.content}
-                        published={post.published}
-                        key={post.id}
-                        onDelete={() => deletedPost(post.id)} />
+                    // Ritorno la card solo se questa ha la chiave published impostata su true
+                    if (post.published) {
+                        return <Card
+                            id={post.id}
+                            title={post.title}
+                            image={post.image}
+                            content={post.content}
+                            published={post.published}
+                            key={post.id}
+                            onDelete={() => deletedPost(post.id)} />
+                    }
                 }
                 )}
 
