@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";    // Importo gli hook useState e useEffect
 import Card from "./Card";
 import BlogForm from "./BlogForm";          // Importo il componente BlogForm che disegnerà i campi del form in questo componente
 
@@ -18,6 +18,9 @@ export default function MainComponent() {
     const [post, setPost] = useState(initialPost);
     // Variabile di stato della lista di post
     const [postList, setPostList] = useState([]);
+
+    const [alterPublished, setAlterPublished] = useState(false);
+
 
 
     // Funzione che cancella il post agganciata al click del pulsante
@@ -73,7 +76,14 @@ export default function MainComponent() {
         setPost(initialPost);
     }
 
-    
+    /* Eseguo l'hook useEffect al caricamento iniziale della pagina e ogni volta che cambia il valore di post.published */
+    useEffect(()=>{
+        // Visualizzo un alert ogni volta che il valore di post.published sarà selezionato, cioè sarà true
+        if (post.published) {
+            alert("Hai cliccato su pubblica l'articolo!");
+            
+        }
+    }, [post.published]);
     
     // Clono l'array della variabile di stato
     const arrayPosts = [...postList];
