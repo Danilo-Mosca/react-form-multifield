@@ -12,6 +12,8 @@ const initialPost = {
     tags: ["storia", "arte", "sport", "attualità"],
     published: false,
 };
+// Costante contenente i valori da passare alla <select> del form
+const categoriesAvaible = ["news", "informatica", "musica", "cucina"];
 
 export default function MainComponent() {
     // Variabile di stato dei post, che conterrà un oggetto dei post
@@ -76,6 +78,21 @@ export default function MainComponent() {
         setPost(initialPost);
     }
 
+    // Funzione che setta l'oggetto post con la categoria selezionata nelle select
+    function handlerChangeCategory(event) {
+        // console.log(event.target.name);
+        // console.log(event.target.value);
+        const value = event.target.value;
+        // console.log("event target: ",event.target.value);
+        
+        // Controllo se è stata selezionata una categoria specifica o solo il campo "Seleziona una categoria"
+        if (!value) {
+            setPost({ ...post, category: "Nessuna categoria selezionata" });
+        } else {
+            setPost({ ...post, category: value });
+        }
+    }
+
     /* Eseguo l'hook useEffect al caricamento iniziale della pagina e ogni volta che cambia il valore di post.published */
     useEffect(() => {
         // Visualizzo un alert ogni volta che il valore di post.published sarà selezionato, cioè sarà true
@@ -84,6 +101,20 @@ export default function MainComponent() {
 
         }
     }, [post.published]);
+
+
+
+    // function tags() {
+    //     let tagsList =[];
+    //     postList.tags.forEach((tag) => {
+    //         if(!tagsList.includes(tag)) {
+    //             tagsList.push(tag);
+    //         }
+    //     })
+    //     return tagsList;
+    // }
+
+
 
     // Clono l'array della variabile di stato
     const arrayPosts = [...postList];
@@ -100,6 +131,7 @@ export default function MainComponent() {
                             title={post.title}
                             image={post.image}
                             content={post.content}
+                            category={post.category}
                             published={post.published}
                             key={post.id}
                             onDelete={() => deletedPost(post.id)} />
@@ -110,7 +142,9 @@ export default function MainComponent() {
             <BlogForm
                 handlerInput={handlerInput}
                 handlerSubmit={handlerSubmit}
+                handlerChangeCategory={handlerChangeCategory}
                 post={post}
+                categoriesAvaible={categoriesAvaible}
             />
         </>
     );
